@@ -1,0 +1,2 @@
+views can access other views
+skins can glues together views

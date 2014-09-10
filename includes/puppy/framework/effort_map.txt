@@ -1,0 +1,25 @@
+Current Working Path:
+Bootstrap
+	puppy
+		singleton
+		autoloader
+		application
+		router
+			controller
+
+Goal: finish config & router/mapping
+
+Goal:
+	Define Mutimodule Applications
+		Shared Resources
+			session
+			theme
+			cdn assets
+			config: data sources, models, classes
+		Not Shared to modules: controllers, & views
+		Parent URL Routing
+	Micro Applications
+		Quick Compact Non MVC application that has access to puppy librarys
+		Suitable for webservices, file transformations, processes
+	Single Module Application
+	Command Line Application

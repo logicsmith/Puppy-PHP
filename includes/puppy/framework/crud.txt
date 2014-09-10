@@ -1,0 +1,53 @@
+Create        Read        Update        Delete
+
+##Primary Model
+One-to-One: Additional Fields
+Many-to-One: Drop Downs
+One-to-Many: CRUD Operation, Search & Selection of Items to Include
+Many-to-Many: Selection of Items to Include on Both Ends
+
+##Things to Consider
+Inactive Records vs. Deleted Records
+Link to Parent Record on Inactive Record
+Create Timestamp
+Change Log Design: Record Update Create New Records & Relink
+Unset Settings – Create if unset or Update
+Models & Form I/O should be held together by a tree like array structure
+Form I/O Has to store links to sub model ids
+
+##Design Pattern for Controller/Action
+Check if User has authorization to use this application
+Check if User has authorization to perform this type of action
+Check if record being Updated, Viewed, or Deleted belongs to user or the users organization
+Init Form I/O
+Configure Field Validators & Insert Points for Model Errors
+Acquire Primary Model & Sub Models, Linking Sub Models to Primary Model if In Update, or View Mode
+If Primary Record is in Update or View Mode Then
+	Load Model Data into Form I/O
+If Form Submitted(Token) & Valid Then{
+    Update Models with Form I/O Data
+    Begin Database Transaction
+    Try {
+        If Save Primary Model Succeeded
+            Get Primary Key
+        Link Applicable Sub Model Records to Primary Model
+        Save Sub Models
+		Commit Database Transaction
+		Load Model & Sub Model Ids into Form I/O
+		//Redirect if desired
+	}
+	Catch {
+	    Rollback Database Transaction
+	    Add Model Error Messages to Form I/O 
+		//Debug Helpers
+	}
+}
+//If Form is not valid, error messages will automatically be passed to Form I/O
+Query & Supply Form I/O with Option List for Many-to-One Dropdowns
+Output View for Selected Model (Create, Read, or Update)
+//Delete for Primary Record should be handled in separate actions
+
+Roles should be a Tree One-to-Many Self Relationship
+And Roles to Privileges should be a Many-to-Many Relationship
+Privileges should be individual actions in controllers plus addition custom ones added for detail programing
+Privileges should not be assignable to users but only role groups
